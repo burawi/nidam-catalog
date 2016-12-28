@@ -1,0 +1,15 @@
+block content
+    form(method="post",action=origin+"/"+mdl.conf.prefix +"/add")
+        label(for="name")= mdl.conf.msg.name
+        input(type="text",name="name",id="name")
+        button= mdl.conf.msg.add
+    form(method="post",action=origin+"/"+mdl.conf.prefix +"/edit")
+        label(for="id") id
+        input(type="text",name="id",id="id")
+        label(for="name")= mdl.conf.msg.name
+        input(type="text",name="name",id="name")
+        button= mdl.conf.msg.edit
+    form(method="post",action=origin+"/"+mdl.conf.prefix +"/delete")
+        label(for="id") id
+        input(type="text",name="id",id="id")
+        button= mdl.conf.msg.delete
