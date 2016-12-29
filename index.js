@@ -25,6 +25,7 @@ module.exports = function(G,mdl) {
 
     adminRouter.post('/add',
         mdl.F.verify,
+        mdl.F.filterFiles,
         function(req, res, next) {
             mdl.F.add(req).then(function (item) {
                 res.json({success: true, msg: item});
@@ -33,6 +34,7 @@ module.exports = function(G,mdl) {
     );
 
     adminRouter.post('/add-files',
+        mdl.F.filterFiles,
         function(req, res, next) {
             mdl.F.addFiles(req).then(function (item) {
                 res.json({success: true, msg: item});
@@ -50,6 +52,7 @@ module.exports = function(G,mdl) {
     );
 
     adminRouter.post('/replace-files',
+        mdl.F.filterFiles,
         function(req, res, next) {
             mdl.F.replaceFiles(req).then(function (item) {
                 res.json({success: true, msg: item});
@@ -63,11 +66,14 @@ module.exports = function(G,mdl) {
         });
     });
 
-    adminRouter.post('/delete-files', function(req, res, next) {
-        mdl.F.deleteFiles(req).then(function (item) {
-            res.json({success: true, msg: item});
-        });
-    });
+    adminRouter.post('/delete-files',
+        mdl.F.filterFiles,
+        function(req, res, next) {
+            mdl.F.deleteFiles(req).then(function (item) {
+                res.json({success: true, msg: item});
+            });
+        }
+    );
 
     G.app.use('/' + mdl.conf. prefix, router);
     G.app.use('/admin/' + mdl.conf. prefix, adminRouter);

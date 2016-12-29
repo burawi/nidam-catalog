@@ -24,6 +24,20 @@ module.exports = function (G,conf) {
                 res.json({success: false, msg: check.errors.join('\n'), code: 'FORMERR'});
             }
         },
+        filterFiles: function (req, res, next) {
+            if(!conf.multiFiles){
+                var field = conf.uploadSets.fields[0];
+                req.files = pick(req.files, field);
+                if(Array.isArray(req.files[field])){
+                    req.files[field] = req.files[field][0];
+                    next();
+                } else {
+                    next();
+                }
+            } else {
+                next();
+            }
+        },
         list: function () {
             return new Promise(function(resolve, reject) {
                 var more = {};
