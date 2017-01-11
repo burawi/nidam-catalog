@@ -8,9 +8,6 @@ module.exports = function(G,mdl) {
     var T = G[mdl.conf.tayrProp];
     var table = mdl.conf.table;
 
-    adminRouter.get('*', G.auth.F.isAuthenticated, G.auth.F.isAdmin);
-    adminRouter.post('*', G.auth.F.isAuthenticated, G.auth.F.isAdmin);
-
     adminRouter.get('/', function(req, res, next) {
         mdl.F.list().then(function (list) {
             G.nidam.render(req, res, mdl.V.P.page, {mdl: mdl});
